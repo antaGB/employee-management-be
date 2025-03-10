@@ -16,6 +16,11 @@ const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_ANON_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
+// Add this near the top of your file after creating the Supabase client
+supabase.auth.onAuthStateChange((event, session) => {
+  console.log("Supabase auth event:", event);
+});
+
 app.use(
   cors({
     origin: [
@@ -79,7 +84,11 @@ app.post("/register", async (req, res) => {
       },
     });
   } catch (err) {
-    console.error("Registration error:", err);
+    console.error("Registration error details:", {
+      message: err.message,
+      stack: err.stack,
+      code: err.code,
+    });
     res.status(500).json({ error: "Internal server error: " + err.message });
   }
 });
@@ -129,6 +138,11 @@ app.post("/login", async (req, res) => {
     console.error("Login error:", err);
     res.status(500).json({ error: "Internal server error" });
   }
+});
+
+// Add a basic health check route
+app.get("/health", (req, res) => {
+  res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
 module.exports = app;
