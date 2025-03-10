@@ -32,7 +32,7 @@ app.use(
 app.use(bodyParser.json());
 
 // Register Endpoint
-app.post("/register", async (req, res) => {
+app.post("/api/register", async (req, res) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
@@ -93,7 +93,7 @@ app.post("/register", async (req, res) => {
 });
 
 // Login Endpoint
-app.post("/login", async (req, res) => {
+app.post("/api/login", async (req, res) => {
   const { username, password } = req.body;
 
   try {
@@ -140,12 +140,12 @@ app.post("/login", async (req, res) => {
 });
 
 // Add a basic health check route
-app.get("/health", (req, res) => {
+app.get("/api/health", (req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
 // Add this near your other routes
-app.get("/test", (req, res) => {
+app.get("/api/test", (req, res) => {
   res.json({ message: "Server is running" });
 });
 
