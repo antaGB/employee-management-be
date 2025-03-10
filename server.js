@@ -144,4 +144,9 @@ app.get("/health", (req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
+// Add this near your other routes
+app.get("/test", (req, res) => {
+  res.json({ message: "Server is running" });
+});
+
 module.exports = app;
