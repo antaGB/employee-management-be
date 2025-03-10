@@ -149,7 +149,7 @@ app.get("/test", (req, res) => {
   res.json({ message: "Server is running" });
 });
 
-// Add this at the top level with your other routes
+// Add this at the top level with your other route
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to the API" });
 });
